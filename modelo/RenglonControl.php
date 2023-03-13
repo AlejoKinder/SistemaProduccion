@@ -1,0 +1,110 @@
+<?php
+
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/PHPClass.php to edit this template
+ */
+
+/**
+ * Description of RenglonElaboracion
+ *
+ * @author Alejo
+ */
+require_once 'core/Crud.php';
+require_once 'modelo/Empleado.php';
+require_once 'modelo/OrdenProduccion.php';
+
+class RenglonControl extends Crud{
+    private $id;
+    private $inicio;
+    private $fin;
+    private $fecha_inicio;
+    private $fecha_fin;
+    private $id_empleado;    
+    
+    const TABLE = 'rengloncontrol'; //esta constante contiene el nombre de la tabla a la cual pertenece
+    private $pdo;
+    
+    public function __construct(){
+        parent::__construct(self::TABLE);
+        $this->pdo = parent::conexion();
+        $this->id_empleado = new Empleado();
+    }
+    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getInicio() {
+        return $this->inicio;
+    }
+
+    public function getFin() {
+        return $this->fin;
+    }
+
+    public function getFecha_inicio() {
+        return $this->fecha_inicio;
+    }
+
+    public function getFecha_fin() {
+        return $this->fecha_fin;
+    }
+
+    public function getId_empleado() {
+        return $this->id_empleado;
+    }
+
+    public function setId($id): void {
+        $this->id = $id;
+    }
+
+    public function setInicio($inicio): void {
+        $this->inicio = $inicio;
+    }
+
+    public function setFin($fin): void {
+        $this->fin = $fin;
+    }
+
+    public function setFecha_inicio($fecha_inicio): void {
+        $this->fecha_inicio = $fecha_inicio;
+    }
+
+    public function setFecha_fin($fecha_fin): void {
+        $this->fecha_fin = $fecha_fin;
+    }
+
+    public function setId_empleado($id_empleado): void {
+        $this->id_empleado = $id_empleado;
+    }
+                
+    public function createConOrden($orden){
+        try{
+            $stm = $this->pdo->prepare("INSERT INTO ".self::TABLE." (inicio, fin, fecha_inicio, fecha_fin, id_empleado, id_ordenproduccion) VALUES (?, ?, ?, ?, ?, ?)");
+            //echo "id: ".$this->id_empleado->idemple;
+            $stm->execute(array($this->inicio, $this->fin, $this->fecha_inicio, $this->fecha_fin, ($this->id_empleado !== null) ? $this->id_empleado->idemple : '', $orden));           
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+    
+    public function updateConOrden($orden){
+        try{
+            $stm = $this->pdo->prepare("UPDATE ".self::TABLE." SET inicio=?, fin=?, fecha_inicio=?, fecha_fin=?, id_empleado=?, id_ordenproduccion=? WHERE id=?");
+            //echo $orden;
+            $stm->execute(array($this->inicio, $this->fin, $this->fecha_inicio, $this->fecha_fin, $this->id_empleado->idemple, $orden, $this->id));
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+        }
+    }
+
+    public function create() {
+        
+    }
+
+    public function update() {
+        
+    }
+
+}
