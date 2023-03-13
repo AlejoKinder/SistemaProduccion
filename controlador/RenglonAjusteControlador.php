@@ -7,7 +7,7 @@
 
 /**
  * Description of RenglonElaboracionControlador
- *
+ * Prueba GitHub
  * @author Alejo
  */
 require_once 'modelo/RenglonControl.php';
