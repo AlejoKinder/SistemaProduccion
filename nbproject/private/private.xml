@@ -4,17 +4,26 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/ordenproduccion.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaRenglonControl.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/renglonelaboracion.php</file>
-            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/OrdenProduccion.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaRenglonElaboracion.php</file>
-            <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/RenglonElaboracionControlador.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/RenglonElaboracion.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaOrdenProduccion.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/OrdenProduccionControlador.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/core/Crud.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/Empleado.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaRenglonAjuste.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/index.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/RenglonEspecificacionesControlador.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaRenglonEspecificaciones.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/core/Connection.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/RenglonEspecificaciones.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/RenglonAjusteControlador.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/OrdenProduccion.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/renglonespecificacion.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/RenglonElaboracionControlador.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/renglonajuste.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/rengloncontrol.php</file>
         </group>
     </open-files>
 </project-private>

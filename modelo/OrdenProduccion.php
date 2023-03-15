@@ -14,6 +14,7 @@ require_once 'core/Crud.php';
 require_once 'modelo/Sector.php';
 require_once 'modelo/RenglonElaboracion.php';
 require_once 'modelo/RenglonAjuste.php';
+require_once 'modelo/RenglonEspecificaciones.php';
 
 class OrdenProduccion extends Crud{
     private $id;
@@ -31,6 +32,7 @@ class OrdenProduccion extends Crud{
     private $listRenglonesElaboracion;
     private $listRenglonesControl;
     private $listRenglonesAjuste;
+    private $listRenglonesEspecificacion;
     
     const TABLE = 'ordenproduccion'; //esta constante contiene el nombre de la tabla a la cual pertenece
     private $pdo;
@@ -160,7 +162,7 @@ class OrdenProduccion extends Crud{
             ($retorno !== false) ? $retorno->idSector = $sec->getById($id) : null;
             /*$lista = $this->getRenglonesElaboracion($aux);
             $retorno->listRenglonesElaboracion = ($lista !== false) ? $lista : '';*/
-            $renglones = array('listRenglonesElaboracion' => 'renglonelaboracion','listRenglonesControl' => 'rengloncontrol','listRenglonesAjuste' => 'renglonajuste');
+            $renglones = array('listRenglonesElaboracion' => 'renglonelaboracion','listRenglonesControl' => 'rengloncontrol','listRenglonesAjuste' => 'renglonajuste', 'listRenglonesEspecificacion' => 'renglonespecificaciones');
             foreach($renglones as $renglon=>$tabla){
                 //Recorro todas las tablas de renglones y le asigno a sus respectivas listas.
                 $retorno->$renglon = $this->getRenglones($aux, $tabla);
