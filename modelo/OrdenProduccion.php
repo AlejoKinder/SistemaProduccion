@@ -145,6 +145,7 @@ class OrdenProduccion extends Crud{
             $stm = $this->pdo->prepare("SELECT * FROM ".$tabla." WHERE id_ordenproduccion=?");
             $stm->execute(array($id));
             $retorno = $stm->fetchAll(PDO::FETCH_OBJ);
+            //echo ($retorno !== false) ? 'aaaa' : 'bbbb';
             return ($retorno !== false) ? $retorno : null;
         } catch (PDOException $ex) {
             echo $ex->getMessage();
@@ -166,7 +167,11 @@ class OrdenProduccion extends Crud{
             foreach($renglones as $renglon=>$tabla){
                 //Recorro todas las tablas de renglones y le asigno a sus respectivas listas.
                 $retorno->$renglon = $this->getRenglones($aux, $tabla);
+                //echo ($retorno->listRenglonesEspecificacion !== null) ? '| anda |' : ' | no anda | ';
             }
+            /*foreach($retorno->listRenglonesEspecificacion as $valor){
+                echo $valor->viscocidad;
+            }*/
             //$retorno->listRenglonesElaboracion = $this->getRenglones($aux, 'renglonelaboracion');
             //$retorno->listRenglonesControl = $this->getRenglones($aux, 'rengloncontrol');
             return ($retorno !== false) ? $retorno : null;

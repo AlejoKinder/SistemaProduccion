@@ -11,7 +11,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
     <body>
         <?php
             if(!isset($_REQUEST['controller'])){
-                require_once 'controlador\OrdenProduccionControlador.php';
+                require_once 'controlador/OrdenProduccionControlador.php';
                 $controlador = new OrdenProduccionControlador();
                 $controlador->indexOrdenProduccion();
             }else{

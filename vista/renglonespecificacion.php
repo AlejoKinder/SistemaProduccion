@@ -40,8 +40,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     //$renglonBus = new RenglonElaboracion();
     //$renglones = $renglonBus->getAll();
     $orden = new OrdenProduccion();
+    //echo $idOrden;
     $ordenBus = $orden->getById($idOrden);
-    foreach(($ordenBus->listRenglonesEspecifiacion !== null) ? $ordenBus->listRenglonesEspecifiacion : '' as $listRenglones):
+    //echo ($ordenBus !== null) ? 'Estoy joya' : 'aiuda';
+    foreach($ordenBus->listRenglonesEspecificacion as $listRenglones):
         $empleadoBus = new Empleado();
         $empleadoBus = $empleadoBus->getById($listRenglones->id_empleado);
 ?>
