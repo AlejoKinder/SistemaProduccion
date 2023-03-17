@@ -32,11 +32,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <td><?php echo $listOrdenes->prioridad; ?></td> 
         <td><?php echo $listOrdenes->operacion; ?></td>
         <td><?php echo $listOrdenes->fechaEntrega; ?></td>                     
-        <td><?php echo $listOrdenes->material; ?></td> 
-        <td><?php echo $listOrdenes->color; ?></td>
+        <td><?php echo $listOrdenes->material; ?></td>
+        <td><input type="text" readonly style="background-color: <?php echo $listOrdenes->color; ?>"></td>
+        <!--<td><?php //echo $listOrdenes->color; ?></td> -->
         <td><?php echo $listOrdenes->tipo; ?></td>
         <td><?php echo $listOrdenes->marca; ?></td>
-        <td><?php echo $listOrdenes->tapaColor; ?></td>
+        <td><input type="text" readonly style="background-color: <?php echo $listOrdenes->tapaColor; ?>"></td>
+        <!--<td><?php //echo $listOrdenes->tapaColor; ?></td>-->
         <td><?php echo ($sector !== null) ? $sector->nombre : ''; ?></td>
         <td><a href="index.php?controller=ordenProduccion&action=existencia&id=<?php echo $listOrdenes->id; ?>">Editar</a></td>
         <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=ordenProduccion&action=eliminar&id= <?php echo $listOrdenes->id; ?>">Eliminar</a></td>
