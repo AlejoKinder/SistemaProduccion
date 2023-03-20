@@ -61,5 +61,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </tr>
 <?php endforeach; ?>
         </table>
+        <br>
+        <td><a href="index.php?controller=renglonEtiquetado&action=mostrar&idOrden=<?php echo $idOrden; ?>">Siguiente-></td>
     </body>
 </html>

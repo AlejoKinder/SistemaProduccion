@@ -13,18 +13,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <table>
             <tr>
                 <td>
-                    <a href="index.php?controller=renglonEspecificacion&action=mostrar&idOrden=<?php echo $idOrden; ?>"><-Volver</a>
+                    <a href="index.php?controller=renglonEspecificaciones&action=mostrar&idOrden=<?php echo $idOrden; ?>"><-Volver</a>
                 </td>
                  <td>
                     |
                 </td>
                 <td>
-                    <a href="index.php?controller=renglonElaboracion&action=existencia&idOrden=<?php echo $idOrden ?>">Nuevo Renglon</a>                    
+                    <a href="index.php?controller=renglonEtiquetado&action=existencia&idOrden=<?php echo $idOrden ?>">Nuevo Renglon</a>                    
                 </td>                               
             </tr>
         </table>                
         <h2>Orden de produccion: <?php echo $idOrden ?></h2>
-        <h3>Elaboracion: </h3>
+        <h3>Etiquetado: </h3>
         <table>
             <tr>
                 <?php
@@ -41,7 +41,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     //$renglones = $renglonBus->getAll();
     $orden = new OrdenProduccion();
     $ordenBus = $orden->getById($idOrden);
-    foreach($ordenBus->listRenglonesElaboracion as $listRenglones):
+    foreach($ordenBus->listRenglonesEtiquetado as $listRenglones):
         $empleadoBus = new Empleado();
         $empleadoBus = $empleadoBus->getById($listRenglones->id_empleado);
 ?>
@@ -50,12 +50,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <td><?php echo $listRenglones->fin; ?></td> 
         <td><?php echo $listRenglones->fecha; ?></td>
         <td><?php echo ($empleadoBus !== null) ? $empleadoBus->nombre : '' ?></td>                     
-        <td><a href="index.php?controller=renglonElaboracion&action=existencia&id=<?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Editar</a></td>
-        <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonElaboracion&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Eliminar</a></td>
+        <td><a href="index.php?controller=renglonEtiquetado&action=existencia&id=<?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Editar</a></td>
+        <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonEtiquetado&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Eliminar</a></td>
     </tr>
 <?php endforeach; ?>
         </table>
         <br>
-        <td><a href="index.php?controller=renglonControl&action=mostrar&idOrden=<?php echo $idOrden; ?>">Siguiente-></td>
+        <td><a href="index.php?controller=renglonEnvasado&action=mostrar&idOrden=<?php echo $idOrden; ?>">Siguiente-></td>
     </body>
 </html>

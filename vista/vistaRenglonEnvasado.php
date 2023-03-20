@@ -9,25 +9,46 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title></title>
     </head>
     <body>
+        <?php $idOrden = $_REQUEST['idOrden']; ?>            
+        <?php
+            //echo $idOrden;
+            if(isset($ren)){
+                $datosRenglon = array('id'=>$ren->id, 'inicio'=>$ren->inicio, 'fin'=>$ren->fin, 'fecha'=>$ren->fecha, 'idEmpleado'=>$ren->id_empleado);
+            }else{
+                $datosRenglon = array('id'=>"", 'inicio'=>"", 'fin'=>"", 'fecha'=>"", 'idEmpleado'=>"");
+            }
+        ?>
+        <a href="index.php?controller=renglonEnvasado&action=mostrar&idOrden=<?php echo $idOrden;?>"><-Volver</a>
         <h1>Orden de Produccion: Registro Envasado</h1>
         <br>
-        <form>
+        <form action="index.php?controller=renglonEnvasado&action=crearOeditar" method="post">
             <table>
-                <tr>
+                <tr>                    
                     <td>Hora Inicio: </td>
                     <td>
-                        <input type="time" name="inicio">
+                        <input type="time" name="inicio" value=<?php echo $datosRenglon['inicio']; ?>>
                     </td>
                 </tr>
                 <tr>
                     <td>Hora Fin: </td>
                     <td>
-                        <input type="time" name="fin">
+                        <input type="time" name="fin" value=<?php echo $datosRenglon['fin']; ?>>
                     </td>
                 </tr>
                 <tr>
                     <td>Fecha: </td>
-                    <td><input type="date" name="fecha"></td>
+                    <td><input type="date" name="fecha" value=<?php echo $datosRenglon['fecha']; ?>></td>
+                </tr>
+                <tr>
+                    <td>Id Empleado: </td>
+                    <td>
+                        <input type="number" name="idEmpleado" min="1" value=<?php echo $datosRenglon['idEmpleado']; ?>>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Guardar">
+                    </td>
                 </tr>
             </table>
         </form>

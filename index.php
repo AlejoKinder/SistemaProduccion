@@ -17,6 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
             }else{
                 $controlador = $_REQUEST['controller'];
                 $action = $_REQUEST['action'];
+                $controlador = ucwords($controlador);
                 require_once 'controlador/'.$controlador.'Controlador.php';
                 $controlador = ucwords($controlador).'Controlador';
                 $controlador = new $controlador;
