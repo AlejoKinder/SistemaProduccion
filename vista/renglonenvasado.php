@@ -54,6 +54,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonEnvasado&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Eliminar</a></td>
     </tr>
 <?php endforeach; ?>
-        </table>        
+        </table>
+        <br>
+        <td><a href="index.php?controller=renglonControlFinal&action=mostrar&idOrden=<?php echo $idOrden; ?>">Siguiente-></td>
     </body>
 </html>

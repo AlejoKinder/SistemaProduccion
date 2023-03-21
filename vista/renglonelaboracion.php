@@ -13,7 +13,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <table>
             <tr>
                 <td>
-                    <a href="index.php?controller=renglonEspecificacion&action=mostrar&idOrden=<?php echo $idOrden; ?>"><-Volver</a>
+                    <a href="index.php?controller=ordenProduccion&action=indexOrdenProduccion&idOrden=<?php echo $idOrden; ?>"><-Volver</a>
                 </td>
                  <td>
                     |

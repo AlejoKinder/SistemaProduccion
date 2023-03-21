@@ -37,6 +37,7 @@ class OrdenProduccion extends Crud{
     private $listRenglonesEspecificacion;
     private $listRenglonesEtiquetado;
     private $listRenglonesEnvasado;
+    private $listRenglonesControlFinal;
     
     const TABLE = 'ordenproduccion'; //esta constante contiene el nombre de la tabla a la cual pertenece
     private $pdo;
@@ -167,7 +168,7 @@ class OrdenProduccion extends Crud{
             ($retorno !== false) ? $retorno->idSector = $sec->getById($id) : null;
             /*$lista = $this->getRenglonesElaboracion($aux);
             $retorno->listRenglonesElaboracion = ($lista !== false) ? $lista : '';*/
-            $renglones = array('listRenglonesElaboracion' => 'renglonelaboracion','listRenglonesControl' => 'rengloncontrol','listRenglonesAjuste' => 'renglonajuste', 'listRenglonesEspecificacion' => 'renglonespecificaciones', 'listRenglonesEtiquetado' => 'renglonetiquetado', 'listRenglonesEnvasado' => 'renglonenvasado');
+            $renglones = array('listRenglonesElaboracion' => 'renglonelaboracion','listRenglonesControl' => 'rengloncontrol','listRenglonesAjuste' => 'renglonajuste', 'listRenglonesEspecificacion' => 'renglonespecificaciones', 'listRenglonesEtiquetado' => 'renglonetiquetado', 'listRenglonesEnvasado' => 'renglonenvasado', 'listRenglonesControlFinal' => 'rengloncontrolfinal');
             foreach($renglones as $renglon=>$tabla){
                 $retorno->$renglon = $this->getRenglones($aux, $tabla);
             }

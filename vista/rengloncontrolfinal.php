@@ -13,22 +13,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <table>
             <tr>
                 <td>
-                    <a href="index.php?controller=renglonAjuste&action=mostrar&idOrden=<?php echo $idOrden; ?>"><-Volver</a>
+                    <a href="index.php?controller=renglonEnvasado&action=mostrar&idOrden=<?php echo $idOrden; ?>"><-Volver</a>
                 </td>
                  <td>
                     |
                 </td>
                 <td>
-                    <a href="index.php?controller=renglonEspecificaciones&action=existencia&idOrden=<?php echo $idOrden; ?>">Nuevo Renglon</a>                    
+                    <a href="index.php?controller=renglonControlFinal&action=existencia&idOrden=<?php echo $idOrden; ?>">Nuevo Renglon</a>                    
                 </td>                               
             </tr>
         </table>                
         <h2>Orden de produccion: <?php echo $idOrden ?></h2>
-        <h3>Especificaciones: </h3>
+        <h3>Control Final: </h3>
         <table>
             <tr>
                 <?php
-                    $renglon = array('Viscocidad (n°4)', ' | Viscocidad (st)',' | Brillo',  ' | Solidos', '| Densidad', ' | Ablandamiento', ' | Acidez', ' | Responsable');
+                    $renglon = array('Inicio', ' | Fin',' | Fecha',  ' | Presentacion', '| Entregado', ' | Corregido', ' | Perdido', ' | L / KG', ' | Responsable');
                     foreach($renglon as $valor):
                 ?>
                 <td><h3><?php echo $valor; ?></h3></td>
@@ -43,25 +43,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     //echo $idOrden;
     $ordenBus = $orden->getById($idOrden);
     //echo ($ordenBus !== null) ? 'Estoy joya' : 'aiuda';
-    foreach($ordenBus->listRenglonesEspecificacion as $listRenglones):
+    foreach($ordenBus->listRenglonesControlFinal as $listRenglones):
         $empleadoBus = new Empleado();
         $empleadoBus = $empleadoBus->getById($listRenglones->id_empleado);
 ?>
     <tr>                
-        <td><?php echo $listRenglones->viscocidad; ?></td>
-        <td><?php echo $listRenglones->viscocidad_2; ?></td> 
-        <td><?php echo $listRenglones->brillo; ?></td> 
-        <td><?php echo $listRenglones->solidos; ?></td>
-        <td><?php echo $listRenglones->densidad; ?></td>
-        <td><?php echo $listRenglones->ablandamiento; ?></td>
-        <td><?php echo $listRenglones->acidez; ?></td>
+        <td><?php echo $listRenglones->inicio; ?></td>
+        <td><?php echo $listRenglones->fin; ?></td> 
+        <td><?php echo $listRenglones->fecha; ?></td> 
+        <td><?php echo $listRenglones->presentacion; ?></td>
+        <td><?php echo $listRenglones->entregado; ?></td>
+        <td><?php echo $listRenglones->corregido; ?></td>
+        <td><?php echo $listRenglones->perdido; ?></td>
+        <td><?php echo $listRenglones->litrosOkg; ?></td>
         <td><?php echo ($empleadoBus !== null) ? $empleadoBus->nombre : '' ?></td>                     
-        <td><a href="index.php?controller=renglonEspecificaciones&action=existencia&id=<?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Editar</a></td>
-        <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonEspecificaciones&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Eliminar</a></td>
+        <td><a href="index.php?controller=renglonControlFinal&action=existencia&id=<?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Editar</a></td>
+        <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonControlFinal&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Eliminar</a></td>
     </tr>
 <?php endforeach; ?>
         </table>
-        <br>
-        <td><a href="index.php?controller=renglonEtiquetado&action=mostrar&idOrden=<?php echo $idOrden; ?>">Siguiente-></td>
     </body>
 </html>

@@ -22,6 +22,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <h1>Orden de Produccion: Registro Etiquetado</h1>
         <br>
         <form action="index.php?controller=renglonEtiquetado&action=crearOeditar" method="post">
+            <input type="hidden" name="id" value=<?php echo $datosRenglon['id']; ?>>
+            <input type="hidden" name="idOrden" value=<?php echo $idOrden; ?>>
             <table>
                 <tr>                    
                     <td>Hora Inicio: </td>

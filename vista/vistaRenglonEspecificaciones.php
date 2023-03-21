@@ -18,7 +18,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 $datosRenglon = array('id'=>"", 'viscocidad'=>"", 'viscocidad_2'=>"", 'brillo'=>"", 'solidos'=>"", 'densidad'=>"", 'ablandamiento'=>"", 'acidez'=>"", 'idEmpleado'=>"");
             }
         ?>
-        <a href="index.php?controller=renglonEspecifiaciones&action=mostrar&idOrden=<?php echo $idOrden;?>"><-Volver</a>
+        <a href="index.php?controller=renglonEspecificaciones&action=mostrar&idOrden=<?php echo $idOrden;?>"><-Volver</a>
         <h1>Orden de Produccion: Registro Especifiaciones</h1>
         <form action="index.php?controller=renglonEspecificaciones&action=crearOeditar&idOrden=<?php echo $idOrden; ?>" method="post">
             <input type="hidden" name="id" value=<?php echo $datosRenglon['id']; ?>>

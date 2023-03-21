@@ -21,7 +21,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <a href="index.php?controller=renglonEnvasado&action=mostrar&idOrden=<?php echo $idOrden;?>"><-Volver</a>
         <h1>Orden de Produccion: Registro Envasado</h1>
         <br>
-        <form action="index.php?controller=renglonEnvasado&action=crearOeditar" method="post">
+        <form action="index.php?controller=renglonEnvasado&action=crearOeditar&action=crearOeditar" method="post">
+            <input type="hidden" name="id" value=<?php echo $datosRenglon['id']; ?>>
+            <input type="hidden" name="idOrden" value=<?php echo $idOrden; ?>>
             <table>
                 <tr>                    
                     <td>Hora Inicio: </td>
