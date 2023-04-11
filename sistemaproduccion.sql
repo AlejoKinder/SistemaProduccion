@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-03-2023 a las 19:58:54
+-- Tiempo de generación: 11-04-2023 a las 15:25:02
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -24,6 +24,44 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `articulo`
+--
+
+CREATE TABLE `articulo` (
+  `idArticulo` int(11) NOT NULL,
+  `descripcion` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nivel` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `articulo`
+--
+
+INSERT INTO `articulo` (`idArticulo`, `descripcion`, `nivel`) VALUES
+(1, 'Sint. Azul Marino', 39000);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detalleformula`
+--
+
+CREATE TABLE `detalleformula` (
+  `id` int(11) NOT NULL,
+  `detalle` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `nivel` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalleformula`
+--
+
+INSERT INTO `detalleformula` (`id`, `detalle`, `nivel`) VALUES
+(1, 'G 331', 39001);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `empleado`
 --
 
@@ -40,6 +78,65 @@ INSERT INTO `empleado` (`idemple`, `nombre`) VALUES
 (1, 'Alejo'),
 (2, 'Tute'),
 (3, 'Laura');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `formula`
+--
+
+CREATE TABLE `formula` (
+  `id` int(11) NOT NULL,
+  `idArticulo` int(11) NOT NULL,
+  `idMaterial` int(11) NOT NULL,
+  `idDetalle` int(11) NOT NULL,
+  `solido` float NOT NULL,
+  `densidad` float NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `formula`
+--
+
+INSERT INTO `formula` (`id`, `idArticulo`, `idMaterial`, `idDetalle`, `solido`, `densidad`, `cantidad`) VALUES
+(1, 1, 1, 1, 3, 0.95, 180),
+(2, 1, 2, 1, 2, 0.924, 65),
+(3, 1, 3, 1, 1, 0.927, 0),
+(4, 1, 4, 1, 1.2, 1.78, 0),
+(5, 1, 5, 1, 7.1, 0.774, 20),
+(6, 1, 6, 1, 9, 0.91, 5),
+(7, 1, 7, 1, 4, 0.92, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `material`
+--
+
+CREATE TABLE `material` (
+  `id` int(11) NOT NULL,
+  `costo` float NOT NULL,
+  `descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `indiceAcidez` int(11) NOT NULL,
+  `indiceIodo` int(11) NOT NULL,
+  `absorcionAceite` int(11) NOT NULL,
+  `puntoAblandamiento` int(11) NOT NULL,
+  `puntoFusion` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `material`
+--
+
+INSERT INTO `material` (`id`, `costo`, `descripcion`, `indiceAcidez`, `indiceIodo`, `absorcionAceite`, `puntoAblandamiento`, `puntoFusion`) VALUES
+(1, 1.44, 'RESINA G 331', 0, 0, 0, 0, 0),
+(2, 4.13, 'PIGMENTO SINT. AZUL ROJIS', 0, 0, 0, 0, 0),
+(3, 3, 'PIGMENTO SINT. NEGRO     ', 0, 0, 0, 0, 0),
+(4, 3, 'PIGMENTO SINT. BLANCO', 0, 0, 0, 0, 0),
+(5, 1, 'AGUARRAS  PESADO', 0, 0, 0, 0, 0),
+(6, 3, 'TRIMETAL', 0, 0, 0, 0, 0),
+(7, 3, 'ANTICAPA                 ', 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -68,7 +165,7 @@ INSERT INTO `ordenproduccion` (`id`, `prioridad`, `idSector`, `operacion`, `fech
 (1, 'normal', 3, 'Recuperado', '2023-02-28', 'Plastico', '#ffffff', 'Tambor', 'Full Paint', '#ffdd00'),
 (3, 'urgente', 1, 'Elaboracion', '2023-02-16', 'Metal', '#ff0000', 'Balde', 'Alejo', '#ff0000'),
 (4, 'urgente', 1, 'Fraccionado', '2023-02-01', 'Metal', '#000000', 'Pallet', 'Pinturas Misioneras', '#098500'),
-(8, 'normal', 6, 'Elaboracion', '2022-03-30', 'Metal', '#000000', 'Balde', 'Coca Cola', '#ff0000'),
+(8, 'normal', 6, 'Elaboracion', '2022-03-30', 'Plastico', '#000000', 'Balde', 'Coca Cola', '#ff0000'),
 (9, 'urgente', 7, 'Recuperado', '2023-03-06', 'Metal', '#ff0000', 'Balde', 'Pinturas Misioneras', '#ffffff');
 
 -- --------------------------------------------------------
@@ -132,9 +229,9 @@ INSERT INTO `rengloncontrol` (`id`, `inicio`, `fecha_inicio`, `fin`, `fecha_fin`
 
 CREATE TABLE `rengloncontrolfinal` (
   `id` int(11) NOT NULL,
-  `inicio` int(11) DEFAULT NULL,
-  `fin` int(11) DEFAULT NULL,
-  `fecha` int(11) DEFAULT NULL,
+  `inicio` time DEFAULT NULL,
+  `fin` time DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
   `presentacion` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
   `entregado` int(11) DEFAULT NULL,
   `corregido` int(11) DEFAULT NULL,
@@ -143,6 +240,14 @@ CREATE TABLE `rengloncontrolfinal` (
   `id_empleado` int(11) NOT NULL,
   `id_ordenproduccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `rengloncontrolfinal`
+--
+
+INSERT INTO `rengloncontrolfinal` (`id`, `inicio`, `fin`, `fecha`, `presentacion`, `entregado`, `corregido`, `perdido`, `litrosOkg`, `id_empleado`, `id_ordenproduccion`) VALUES
+(3, '13:00:00', '13:05:00', '2022-12-19', 'bbbb', 1000, 2, 1, 'Total', 3, 3),
+(4, '12:54:00', '14:54:00', '2023-03-21', 'aaa', 500, 3, 2, 'Total', 1, 3);
 
 -- --------------------------------------------------------
 
@@ -183,6 +288,13 @@ CREATE TABLE `renglonenvasado` (
   `id_empleado` int(11) NOT NULL,
   `id_ordenproduccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `renglonenvasado`
+--
+
+INSERT INTO `renglonenvasado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`) VALUES
+(5, '10:30:00', '11:35:00', '2023-03-22', 3, 3);
 
 -- --------------------------------------------------------
 
@@ -225,6 +337,13 @@ CREATE TABLE `renglonetiquetado` (
   `id_ordenproduccion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `renglonetiquetado`
+--
+
+INSERT INTO `renglonetiquetado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`) VALUES
+(2, '10:25:00', '13:25:00', '2023-03-21', 1, 3);
+
 -- --------------------------------------------------------
 
 --
@@ -253,10 +372,37 @@ INSERT INTO `sector` (`id`, `nombre`) VALUES
 --
 
 --
+-- Indices de la tabla `articulo`
+--
+ALTER TABLE `articulo`
+  ADD PRIMARY KEY (`idArticulo`);
+
+--
+-- Indices de la tabla `detalleformula`
+--
+ALTER TABLE `detalleformula`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `empleado`
 --
 ALTER TABLE `empleado`
   ADD PRIMARY KEY (`idemple`);
+
+--
+-- Indices de la tabla `formula`
+--
+ALTER TABLE `formula`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idArticulo` (`idArticulo`),
+  ADD KEY `idDetalle` (`idDetalle`),
+  ADD KEY `idMaterial` (`idMaterial`);
+
+--
+-- Indices de la tabla `material`
+--
+ALTER TABLE `material`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `ordenproduccion`
@@ -301,6 +447,7 @@ ALTER TABLE `renglonelaboracion`
 -- Indices de la tabla `renglonenvasado`
 --
 ALTER TABLE `renglonenvasado`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `id_empleado` (`id_empleado`),
   ADD KEY `id_ordenproduccion` (`id_ordenproduccion`);
 
@@ -331,10 +478,34 @@ ALTER TABLE `sector`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `articulo`
+--
+ALTER TABLE `articulo`
+  MODIFY `idArticulo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT de la tabla `detalleformula`
+--
+ALTER TABLE `detalleformula`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `empleado`
 --
 ALTER TABLE `empleado`
   MODIFY `idemple` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `formula`
+--
+ALTER TABLE `formula`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `material`
+--
+ALTER TABLE `material`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `ordenproduccion`
@@ -358,13 +529,19 @@ ALTER TABLE `rengloncontrol`
 -- AUTO_INCREMENT de la tabla `rengloncontrolfinal`
 --
 ALTER TABLE `rengloncontrolfinal`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `renglonelaboracion`
 --
 ALTER TABLE `renglonelaboracion`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT de la tabla `renglonenvasado`
+--
+ALTER TABLE `renglonenvasado`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `renglonespecificaciones`
@@ -376,7 +553,7 @@ ALTER TABLE `renglonespecificaciones`
 -- AUTO_INCREMENT de la tabla `renglonetiquetado`
 --
 ALTER TABLE `renglonetiquetado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `sector`
@@ -387,6 +564,14 @@ ALTER TABLE `sector`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `formula`
+--
+ALTER TABLE `formula`
+  ADD CONSTRAINT `formula_ibfk_1` FOREIGN KEY (`idArticulo`) REFERENCES `articulo` (`idArticulo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `formula_ibfk_2` FOREIGN KEY (`idDetalle`) REFERENCES `detalleformula` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `formula_ibfk_3` FOREIGN KEY (`idMaterial`) REFERENCES `material` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `ordenproduccion`
