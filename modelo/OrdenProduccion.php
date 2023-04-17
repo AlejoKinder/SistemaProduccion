@@ -29,6 +29,7 @@ class OrdenProduccion extends Crud{
     private $marca;
     private $tapaColor;
     private $idSector;  //en realidad es un objeto Sector, pero  se tiene que llamar igual que en la base de datos.
+    private $estado;
     
     //RENGLONES:
     private $listRenglonesElaboracion;
@@ -147,10 +148,10 @@ class OrdenProduccion extends Crud{
     
     public function getRenglones($id, $tabla){
         try{
-            $stm = $this->pdo->prepare("SELECT * FROM ".$tabla." WHERE id_ordenproduccion=?");
-            $stm->execute(array($id));
+            $estado2 = 0;
+            $stm = $this->pdo->prepare("SELECT * FROM ".$tabla." WHERE id_ordenproduccion=? AND estado=?");
+            $stm->execute(array($id, $estado2));
             $retorno = $stm->fetchAll(PDO::FETCH_OBJ);
-            //echo ($retorno !== false) ? 'aaaa' : 'bbbb';
             return ($retorno !== false) ? $retorno : null;
         } catch (PDOException $ex) {
             echo $ex->getMessage();

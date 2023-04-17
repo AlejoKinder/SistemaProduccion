@@ -23,6 +23,7 @@ class Connection {
             //$pdo = new PDO("{$this->driver}:host={$this->host};dbName={$this->dbName};charset={$this->charset}",$this->user,$this->password);
             $pdo = new PDO("mysql:host=localhost;dbname=sistemaproduccion", 'root', '');
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //https://www.php.net/manual/es/pdo.setattribute.php
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             return $pdo; //si la conexion se hizo bien, devolvera true la funcion.
         } catch (PDOException $e) {
             echo $e->getMessage();

@@ -63,6 +63,6 @@ class OrdenProduccionControlador {
         //$this->model->delete($_REQUEST['id']);
         $opa->delete($_REQUEST['id']);
         
-        //header("Location: index.php");
+        header("Location: index.php");
     }
 }

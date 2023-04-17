@@ -21,15 +21,32 @@ abstract class Crud extends Connection{
         $this->pdo = parent::conexion();
     }
     
-    public function getAll(){
+    /*public function getAll(){
         try{
-            $stm = $this->pdo->prepare("SELECT * FROM $this->table");
-            $stm->execute();
+            $estado = 0;
+            $stm = $this->pdo->prepare("SELECT * FROM ".$this->table." WHERE estado=?");
+            $stm->execute(array($estado));
             return $stm->fetchAll(PDO::FETCH_OBJ); //devuelve una lista de objetos.
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
+    }*/
+    
+    public function getAll(){
+    try{
+        $this->pdo->query('SET SESSION query_cache_type = OFF'); // Desactivar la caché de consultas
+        $estado = 0;
+        $stm = $this->pdo->prepare("SELECT * FROM ".$this->table." WHERE estado=?");
+        $stm->execute(array($estado));
+        return $stm->fetchAll(PDO::FETCH_OBJ); //devuelve una lista de objetos.
+    } catch (PDOException $e) {
+        echo $e->getMessage();
     }
+}
+
+
+
+
     
     /*public function getById($id){
         try{
@@ -45,7 +62,7 @@ abstract class Crud extends Connection{
     
     public function getById($id){
         try{
-            $stm = $this->pdo->prepare("SELECT * FROM ".$this->table." WHERE id=?");
+            $stm = $this->pdo->prepare("SELECT * FROM ".$this->table." WHERE id=? AND estado=0");
             $stm->execute(array($id));
             $result = $stm->fetch(PDO::FETCH_OBJ);
             return ($result !== false) ? $result : null;
@@ -56,7 +73,8 @@ abstract class Crud extends Connection{
     
     public function delete($id){
         try{
-            $stm = $this->pdo->prepare("DELETE FROM $this->table WHERE id = ?"); //ponemos signo de pregunta para no poner el dato.
+            //$stm = $this->pdo->prepare("DELETE FROM $this->table WHERE id = ?"); //ponemos signo de pregunta para no poner el dato.
+            $stm = $this->pdo->prepare("UPDATE ".$this->table." SET estado = 1 WHERE id=?");
             $stm->execute(array($id));
         } catch (PDOException $e) {
             echo $e->getMessage();
