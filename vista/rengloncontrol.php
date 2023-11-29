@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
 Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to edit this template
@@ -53,6 +53,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <td><?php echo ($empleadoBus !== null) ? $empleadoBus->nombre : '' ?></td>                     
         <td><a href="index.php?controller=renglonControl&action=existencia&id=<?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Editar</a></td>
         <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonControl&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Eliminar</a></td>
+        <?php if($listRenglones->fin == '00:00:00'): ?>
+            <td><a onclick="javascript:return confirm('Seguro que quiere finalizar el Renglon?');" href="index.php?controller=renglonControl&action=finalizarRenglon&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Finalizar</a></td>
+        <?php endif; ?>
     </tr>
 <?php endforeach; ?>
         </table>

@@ -18,7 +18,8 @@ class RenglonControlFinal extends Crud{
     private $id;
     private $inicio;
     private $fin;
-    private $fecha;
+    private $fecha_inicio;
+    private $fecha_fin;
     private $presentacion;
     private $entregado;
     private $corregido;
@@ -47,8 +48,12 @@ class RenglonControlFinal extends Crud{
         return $this->fin;
     }
 
-    public function getFecha() {
-        return $this->fecha;
+    public function getFecha_inicio() {
+        return $this->fecha_inicio;
+    }
+
+    public function getFecha_fin() {
+        return $this->fecha_fin;
     }
 
     public function getPresentacion() {
@@ -87,8 +92,12 @@ class RenglonControlFinal extends Crud{
         $this->fin = $fin;
     }
 
-    public function setFecha($fecha): void {
-        $this->fecha = $fecha;
+    public function setFecha_inicio($fecha_inicio): void {
+        $this->fecha_inicio = $fecha_inicio;
+    }
+
+    public function setFecha_fin($fecha_fin): void {
+        $this->fecha_fin = $fecha_fin;
     }
 
     public function setPresentacion($presentacion): void {
@@ -114,16 +123,16 @@ class RenglonControlFinal extends Crud{
     public function setId_empleado($id_empleado): void {
         $this->id_empleado = $id_empleado;
     }
-             
+                 
     public function create() {        
         
     }
     
     public function createConOrden($orden){
         try{
-            $stm = $this->pdo->prepare("INSERT INTO ".self::TABLE." (inicio, fin, fecha, presentacion, entregado, corregido, perdido, litrosOkg, id_empleado, id_ordenproduccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stm = $this->pdo->prepare("INSERT INTO ".self::TABLE." (inicio, fin, fecha_inicio, fecha_fin, presentacion, entregado, corregido, perdido, litrosOkg, id_empleado, id_ordenproduccion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             //echo "id: ".$this->id_empleado->idemple;
-            $stm->execute(array($this->inicio, $this->fin, $this->fecha,  $this->presentacion, $this->entregado, $this->corregido, $this->perdido, $this->litrosOkg, ($this->id_empleado !== null) ? $this->id_empleado->idemple : '', $orden));           
+            $stm->execute(array($this->inicio, $this->fin, $this->fecha_inicio, $this->fecha_fin, $this->presentacion, $this->entregado, $this->corregido, $this->perdido, $this->litrosOkg, ($this->id_empleado !== null) ? $this->id_empleado->idemple : '', $orden));           
         } catch (PDOException $ex) {
             echo $ex->getMessage();
         }
@@ -135,9 +144,9 @@ class RenglonControlFinal extends Crud{
     
     public function updateConOrden($orden){
         try{
-            $stm = $this->pdo->prepare("UPDATE ".self::TABLE." SET inicio=?, fin=?, fecha=?, presentacion=?, entregado=?, corregido=?, perdido=?, litrosOkg=?, id_empleado=?, id_ordenproduccion=? WHERE id=?");
+            $stm = $this->pdo->prepare("UPDATE ".self::TABLE." SET inicio=?, fin=?, fecha_inicio=?, fecha_fin=?,presentacion=?, entregado=?, corregido=?, perdido=?, litrosOkg=?, id_empleado=?, id_ordenproduccion=? WHERE id=?");
             //echo $orden;
-            $stm->execute(array($this->inicio, $this->fin, $this->fecha,  $this->presentacion, $this->entregado, $this->corregido, $this->perdido, $this->litrosOkg, ($this->id_empleado !== null) ? $this->id_empleado->idemple : '', $orden, $this->id));
+            $stm->execute(array($this->inicio, $this->fin, $this->fecha_inicio, $this->fecha_fin, $this->presentacion, $this->entregado, $this->corregido, $this->perdido, $this->litrosOkg, ($this->id_empleado !== null) ? $this->id_empleado->idemple : '', $orden, $this->id));
         } catch (PDOException $ex) {
             echo $ex->getMessage();
         }

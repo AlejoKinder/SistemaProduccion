@@ -28,7 +28,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <table>
             <tr>
                 <?php
-                    $renglon = array('Inicio', ' | Fin',' | Fecha',  ' | Presentacion', '| Entregado', ' | Corregido', ' | Perdido', ' | L / KG', ' | Responsable');
+                    $renglon = array('Inicio', ' | Fin',' | Fecha Inicio', '| Fecha Fin', ' | Presentacion', '| Entregado', ' | Corregido', ' | Perdido', ' | L / KG', ' | Responsable');
                     foreach($renglon as $valor):
                 ?>
                 <td><h3><?php echo $valor; ?></h3></td>
@@ -50,7 +50,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     <tr>                
         <td><?php echo $listRenglones->inicio; ?></td>
         <td><?php echo $listRenglones->fin; ?></td> 
-        <td><?php echo $listRenglones->fecha; ?></td> 
+        <td><?php echo $listRenglones->fecha_inicio; ?></td>
+        <td><?php echo $listRenglones->fecha_fin; ?></td> 
         <td><?php echo $listRenglones->presentacion; ?></td>
         <td><?php echo $listRenglones->entregado; ?></td>
         <td><?php echo $listRenglones->corregido; ?></td>
@@ -59,6 +60,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <td><?php echo ($empleadoBus !== null) ? $empleadoBus->nombre : '' ?></td>                     
         <td><a href="index.php?controller=renglonControlFinal&action=existencia&id=<?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Editar</a></td>
         <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonControlFinal&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $idOrden; ?>">Eliminar</a></td>
+        <?php if($listRenglones->fin == '00:00:00'): ?>
+            <td><a onclick="javascript:return confirm('Seguro que quiere finalizar el Renglon?');" href="index.php?controller=renglonControlFinal&action=finalizarRenglon&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Finalizar</a></td>
+        <?php endif; ?>
     </tr>
 <?php endforeach; ?>
         </table>

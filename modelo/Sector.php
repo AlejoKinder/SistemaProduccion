@@ -54,6 +54,18 @@ class Sector extends Crud{
             echo $ex->getMessage();
         }
     }
+    
+    //Override del metodo de CRUD porque sector no tiene la columna estado.
+    public function getById($id){
+        try{
+            $stm = $this->pdo->prepare("SELECT * FROM ".self::TABLE." WHERE id=?");
+            $stm->execute(array($id));
+            $result = $stm->fetch(PDO::FETCH_OBJ);
+            return ($result !== false) ? $result : null;
+        } catch (PDOException $e) {  
+            echo $e->getMessage();
+        }             
+    }
  
     public function create() {
         

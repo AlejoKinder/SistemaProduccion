@@ -18,7 +18,8 @@ class RenglonEtiquetado extends Crud{
     private $id;
     private $inicio;
     private $fin;
-    private $fecha;
+    private $fecha_inicio;
+    private $fecha_fin;
     private $id_empleado;
     
     const TABLE = 'renglonetiquetado'; //esta constante contiene el nombre de la tabla a la cual pertenece
@@ -73,6 +74,22 @@ class RenglonEtiquetado extends Crud{
     public function setId_empleado($id_empleado): void {
         $this->id_empleado = $id_empleado;
     }
+    
+    public function getFecha_inicio() {
+        return $this->fecha_inicio;
+    }
+
+    public function getFecha_fin() {
+        return $this->fecha_fin;
+    }
+
+    public function setFecha_inicio($fecha_inicio): void {
+        $this->fecha_inicio = $fecha_inicio;
+    }
+
+    public function setFecha_fin($fecha_fin): void {
+        $this->fecha_fin = $fecha_fin;
+    }
 
     public function create() {        
         try{
@@ -86,9 +103,9 @@ class RenglonEtiquetado extends Crud{
     
     public function createConOrden($orden){
         try{
-            $stm = $this->pdo->prepare("INSERT INTO ".self::TABLE." (inicio, fin, fecha, id_empleado, id_ordenproduccion) VALUES (?, ?, ?, ?, ?)");
+            $stm = $this->pdo->prepare("INSERT INTO ".self::TABLE." (inicio, fin, fecha_inicio, fecha_fin, id_empleado, id_ordenproduccion) VALUES (?, ?, ?, ?, ?, ?)");
             //echo "id: ".$this->id_empleado->idemple;
-            $stm->execute(array($this->inicio, $this->fin, $this->fecha, ($this->id_empleado !== null) ? $this->id_empleado->idemple : '', $orden));           
+            $stm->execute(array($this->inicio, $this->fin, $this->fecha_inicio, $this->fecha_fin, ($this->id_empleado !== null) ? $this->id_empleado->idemple : '', $orden));           
         } catch (PDOException $ex) {
             echo $ex->getMessage();
         }
@@ -106,9 +123,9 @@ class RenglonEtiquetado extends Crud{
     
     public function updateConOrden($orden){
         try{
-            $stm = $this->pdo->prepare("UPDATE ".self::TABLE." SET inicio=?, fin=?, fecha=?, id_empleado=?, id_ordenproduccion=? WHERE id=?");
+            $stm = $this->pdo->prepare("UPDATE ".self::TABLE." SET inicio=?, fin=?, fecha_inicio=?, fecha_fin=?, id_empleado=?, id_ordenproduccion=? WHERE id=?");
             //echo $orden;
-            $stm->execute(array($this->inicio, $this->fin, $this->fecha, $this->id_empleado->idemple, $orden, $this->id));
+            $stm->execute(array($this->inicio, $this->fin, $this->fecha_inicio, $this->fecha_fin, $this->id_empleado->idemple, $orden, $this->id));
         } catch (PDOException $ex) {
             echo $ex->getMessage();
         }

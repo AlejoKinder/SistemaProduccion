@@ -33,6 +33,17 @@ class RenglonControlControlador {
         require_once 'vista/vistaRenglonControl.php';
     }
     
+    public function finalizarRenglon(){
+        $ren = new RenglonControl();
+        $ren = $ren->getById($_REQUEST['id']); //buscamos el renglon para finalizarlo.       
+        
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        $ren->fin = date("H:i:s"); //establecemos la hora de fin.
+        $ren->fecha_fin = date('Y-m-d');
+        
+        require_once 'vista/vistaRenglonControl.php'; //volvemos a la vista.
+    }
+    
     public function crearOeditar(){
         //echo 'estoy aca rey';
         $renglon = new RenglonControl();

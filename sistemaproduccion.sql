@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2023 a las 15:25:02
--- Versión del servidor: 10.4.25-MariaDB
--- Versión de PHP: 8.1.10
+-- Tiempo de generación: 18-04-2023 a las 14:03:10
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `articulo` (
   `idArticulo` int(11) NOT NULL,
-  `descripcion` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(20) NOT NULL,
   `nivel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -48,7 +48,7 @@ INSERT INTO `articulo` (`idArticulo`, `descripcion`, `nivel`) VALUES
 
 CREATE TABLE `detalleformula` (
   `id` int(11) NOT NULL,
-  `detalle` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `detalle` varchar(20) NOT NULL,
   `nivel` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
@@ -67,7 +67,7 @@ INSERT INTO `detalleformula` (`id`, `detalle`, `nivel`) VALUES
 
 CREATE TABLE `empleado` (
   `idemple` int(11) NOT NULL,
-  `nombre` varchar(30) COLLATE utf8_spanish_ci NOT NULL
+  `nombre` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
@@ -117,7 +117,7 @@ INSERT INTO `formula` (`id`, `idArticulo`, `idMaterial`, `idDetalle`, `solido`, 
 CREATE TABLE `material` (
   `id` int(11) NOT NULL,
   `costo` float NOT NULL,
-  `descripcion` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `descripcion` varchar(50) NOT NULL,
   `indiceAcidez` int(11) NOT NULL,
   `indiceIodo` int(11) NOT NULL,
   `absorcionAceite` int(11) NOT NULL,
@@ -133,7 +133,7 @@ INSERT INTO `material` (`id`, `costo`, `descripcion`, `indiceAcidez`, `indiceIod
 (1, 1.44, 'RESINA G 331', 0, 0, 0, 0, 0),
 (2, 4.13, 'PIGMENTO SINT. AZUL ROJIS', 0, 0, 0, 0, 0),
 (3, 3, 'PIGMENTO SINT. NEGRO     ', 0, 0, 0, 0, 0),
-(4, 3, 'PIGMENTO SINT. BLANCO', 0, 0, 0, 0, 0),
+(4, 2.5, 'PIGMENTO SINT. BLANCO', 0, 0, 0, 0, 0),
 (5, 1, 'AGUARRAS  PESADO', 0, 0, 0, 0, 0),
 (6, 3, 'TRIMETAL', 0, 0, 0, 0, 0),
 (7, 3, 'ANTICAPA                 ', 0, 0, 0, 0, 0);
@@ -146,27 +146,28 @@ INSERT INTO `material` (`id`, `costo`, `descripcion`, `indiceAcidez`, `indiceIod
 
 CREATE TABLE `ordenproduccion` (
   `id` int(11) NOT NULL,
-  `prioridad` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `prioridad` varchar(10) NOT NULL,
   `idSector` int(11) NOT NULL,
-  `operacion` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `operacion` varchar(20) NOT NULL,
   `fechaEntrega` date NOT NULL,
-  `material` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
-  `color` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `tipo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `marca` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `tapaColor` varchar(30) COLLATE utf8_spanish_ci NOT NULL
+  `material` varchar(10) NOT NULL,
+  `color` varchar(30) NOT NULL,
+  `tipo` varchar(30) NOT NULL,
+  `marca` varchar(30) NOT NULL,
+  `tapaColor` varchar(30) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `ordenproduccion`
 --
 
-INSERT INTO `ordenproduccion` (`id`, `prioridad`, `idSector`, `operacion`, `fechaEntrega`, `material`, `color`, `tipo`, `marca`, `tapaColor`) VALUES
-(1, 'normal', 3, 'Recuperado', '2023-02-28', 'Plastico', '#ffffff', 'Tambor', 'Full Paint', '#ffdd00'),
-(3, 'urgente', 1, 'Elaboracion', '2023-02-16', 'Metal', '#ff0000', 'Balde', 'Alejo', '#ff0000'),
-(4, 'urgente', 1, 'Fraccionado', '2023-02-01', 'Metal', '#000000', 'Pallet', 'Pinturas Misioneras', '#098500'),
-(8, 'normal', 6, 'Elaboracion', '2022-03-30', 'Plastico', '#000000', 'Balde', 'Coca Cola', '#ff0000'),
-(9, 'urgente', 7, 'Recuperado', '2023-03-06', 'Metal', '#ff0000', 'Balde', 'Pinturas Misioneras', '#ffffff');
+INSERT INTO `ordenproduccion` (`id`, `prioridad`, `idSector`, `operacion`, `fechaEntrega`, `material`, `color`, `tipo`, `marca`, `tapaColor`, `estado`) VALUES
+(1, 'normal', 3, 'Recuperado', '2023-02-28', 'Plastico', '#ffffff', 'Tambor', 'Full Paint', '#ffdd00', 0),
+(3, 'urgente', 1, 'Elaboracion', '2023-02-16', 'Metal', '#ff0000', 'Balde', 'Alejo', '#ff0000', 0),
+(4, 'urgente', 1, 'Fraccionado', '2023-02-01', 'Metal', '#000000', 'Pallet', 'Pinturas Misioneras', '#098500', 0),
+(8, 'normal', 6, 'Elaboracion', '2022-03-30', 'Plastico', '#000000', 'Balde', 'Coca Cola', '#ff0000', 1),
+(9, 'urgente', 7, 'Recuperado', '2023-03-06', 'Metal', '#ff0000', 'Balde', 'Pinturas Misioneras', '#ffffff', 0);
 
 -- --------------------------------------------------------
 
@@ -176,25 +177,26 @@ INSERT INTO `ordenproduccion` (`id`, `prioridad`, `idSector`, `operacion`, `fech
 
 CREATE TABLE `renglonajuste` (
   `id` int(11) NOT NULL,
-  `viscocidad_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `brillo_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `cubritivo_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `secado_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `solidos_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `color_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `molienda_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `total_c` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `viscocidad_c` varchar(10) DEFAULT NULL,
+  `brillo_c` varchar(10) DEFAULT NULL,
+  `cubritivo_c` varchar(10) DEFAULT NULL,
+  `secado_c` varchar(10) DEFAULT NULL,
+  `solidos_c` varchar(10) DEFAULT NULL,
+  `color_c` varchar(10) DEFAULT NULL,
+  `molienda_c` varchar(10) DEFAULT NULL,
+  `total_c` varchar(10) DEFAULT NULL,
   `id_empleado` int(11) NOT NULL,
-  `id_ordenproduccion` int(11) NOT NULL
+  `id_ordenproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `renglonajuste`
 --
 
-INSERT INTO `renglonajuste` (`id`, `viscocidad_c`, `brillo_c`, `cubritivo_c`, `secado_c`, `solidos_c`, `color_c`, `molienda_c`, `total_c`, `id_empleado`, `id_ordenproduccion`) VALUES
-(2, '||', '', '|', '', '', '', '', '|||', 1, 3),
-(6, '|', '||', '|||', '', '', '', '|', '|', 3, 3);
+INSERT INTO `renglonajuste` (`id`, `viscocidad_c`, `brillo_c`, `cubritivo_c`, `secado_c`, `solidos_c`, `color_c`, `molienda_c`, `total_c`, `id_empleado`, `id_ordenproduccion`, `estado`) VALUES
+(2, '||', '', '|', '', '', '', '', '|||', 1, 3, 0),
+(6, '|', '||', '|||', '', '', '', '|', '|', 3, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -209,17 +211,18 @@ CREATE TABLE `rengloncontrol` (
   `fin` time DEFAULT NULL,
   `fecha_fin` date DEFAULT NULL,
   `id_empleado` int(11) NOT NULL,
-  `id_ordenproduccion` int(11) NOT NULL
+  `id_ordenproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rengloncontrol`
 --
 
-INSERT INTO `rengloncontrol` (`id`, `inicio`, `fecha_inicio`, `fin`, `fecha_fin`, `id_empleado`, `id_ordenproduccion`) VALUES
-(1, '12:20:00', '2023-03-08', '06:20:00', '2023-03-10', 2, 3),
-(4, '12:40:00', '2023-03-08', '14:40:00', '2023-03-10', 2, 9),
-(5, '12:40:00', '2023-03-08', '13:40:00', '2023-03-09', 1, 3);
+INSERT INTO `rengloncontrol` (`id`, `inicio`, `fecha_inicio`, `fin`, `fecha_fin`, `id_empleado`, `id_ordenproduccion`, `estado`) VALUES
+(1, '12:20:00', '2023-03-08', '06:20:00', '2023-03-10', 2, 3, 0),
+(4, '12:40:00', '2023-03-08', '14:40:00', '2023-03-10', 2, 9, 0),
+(5, '12:40:00', '2023-03-08', '13:40:00', '2023-03-09', 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -232,22 +235,23 @@ CREATE TABLE `rengloncontrolfinal` (
   `inicio` time DEFAULT NULL,
   `fin` time DEFAULT NULL,
   `fecha` date DEFAULT NULL,
-  `presentacion` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `presentacion` varchar(30) DEFAULT NULL,
   `entregado` int(11) DEFAULT NULL,
   `corregido` int(11) DEFAULT NULL,
   `perdido` int(11) DEFAULT NULL,
-  `litrosOkg` varchar(30) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `litrosOkg` varchar(30) DEFAULT NULL,
   `id_empleado` int(11) NOT NULL,
-  `id_ordenproduccion` int(11) NOT NULL
+  `id_ordenproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `rengloncontrolfinal`
 --
 
-INSERT INTO `rengloncontrolfinal` (`id`, `inicio`, `fin`, `fecha`, `presentacion`, `entregado`, `corregido`, `perdido`, `litrosOkg`, `id_empleado`, `id_ordenproduccion`) VALUES
-(3, '13:00:00', '13:05:00', '2022-12-19', 'bbbb', 1000, 2, 1, 'Total', 3, 3),
-(4, '12:54:00', '14:54:00', '2023-03-21', 'aaa', 500, 3, 2, 'Total', 1, 3);
+INSERT INTO `rengloncontrolfinal` (`id`, `inicio`, `fin`, `fecha`, `presentacion`, `entregado`, `corregido`, `perdido`, `litrosOkg`, `id_empleado`, `id_ordenproduccion`, `estado`) VALUES
+(3, '13:00:00', '13:05:00', '2022-12-19', 'bbbb', 1000, 2, 1, 'Total', 3, 3, 0),
+(4, '12:54:00', '14:54:00', '2023-03-21', 'aaa', 500, 3, 2, 'Total', 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -261,18 +265,19 @@ CREATE TABLE `renglonelaboracion` (
   `fin` time DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `id_empleado` int(11) NOT NULL,
-  `id_ordenproduccion` int(11) NOT NULL
+  `id_ordenproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `renglonelaboracion`
 --
 
-INSERT INTO `renglonelaboracion` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`) VALUES
-(3, '06:12:00', '12:12:00', '2023-03-09', 3, 9),
-(6, '14:06:00', '15:06:00', '2023-03-07', 3, 3),
-(9, '13:00:00', '15:30:00', '2023-03-08', 1, 3),
-(12, '19:00:00', '20:30:00', '2023-03-08', 2, 3);
+INSERT INTO `renglonelaboracion` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`, `estado`) VALUES
+(3, '06:12:00', '12:12:00', '2023-03-09', 3, 9, 0),
+(6, '14:06:00', '15:06:00', '2023-03-07', 3, 3, 0),
+(9, '13:00:00', '15:30:00', '2023-03-08', 1, 3, 0),
+(12, '19:00:00', '20:30:00', '2023-03-08', 2, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -286,15 +291,16 @@ CREATE TABLE `renglonenvasado` (
   `fin` time DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `id_empleado` int(11) NOT NULL,
-  `id_ordenproduccion` int(11) NOT NULL
+  `id_ordenproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `renglonenvasado`
 --
 
-INSERT INTO `renglonenvasado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`) VALUES
-(5, '10:30:00', '11:35:00', '2023-03-22', 3, 3);
+INSERT INTO `renglonenvasado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`, `estado`) VALUES
+(5, '10:30:00', '11:35:00', '2023-03-22', 3, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -304,23 +310,24 @@ INSERT INTO `renglonenvasado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `i
 
 CREATE TABLE `renglonespecificaciones` (
   `id` int(11) NOT NULL,
-  `viscocidad` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `viscocidad_2` varchar(15) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `viscocidad` varchar(15) DEFAULT NULL,
+  `viscocidad_2` varchar(15) DEFAULT NULL,
   `brillo` int(11) DEFAULT NULL,
   `solidos` int(11) DEFAULT NULL,
   `densidad` int(11) DEFAULT NULL,
   `ablandamiento` int(11) DEFAULT NULL,
   `acidez` int(11) DEFAULT NULL,
   `id_empleado` int(11) NOT NULL,
-  `id_ordenproduccion` int(11) NOT NULL
+  `id_ordenproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `renglonespecificaciones`
 --
 
-INSERT INTO `renglonespecificaciones` (`id`, `viscocidad`, `viscocidad_2`, `brillo`, `solidos`, `densidad`, `ablandamiento`, `acidez`, `id_empleado`, `id_ordenproduccion`) VALUES
-(3, '2\'15\'\'', '', 90, 0, 2, 0, 0, 1, 3);
+INSERT INTO `renglonespecificaciones` (`id`, `viscocidad`, `viscocidad_2`, `brillo`, `solidos`, `densidad`, `ablandamiento`, `acidez`, `id_empleado`, `id_ordenproduccion`, `estado`) VALUES
+(3, '2\'15\'\'', '', 90, 0, 2, 0, 0, 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -334,15 +341,16 @@ CREATE TABLE `renglonetiquetado` (
   `fin` time DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `id_empleado` int(11) NOT NULL,
-  `id_ordenproduccion` int(11) NOT NULL
+  `id_ordenproduccion` int(11) NOT NULL,
+  `estado` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `renglonetiquetado`
 --
 
-INSERT INTO `renglonetiquetado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`) VALUES
-(2, '10:25:00', '13:25:00', '2023-03-21', 1, 3);
+INSERT INTO `renglonetiquetado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, `id_ordenproduccion`, `estado`) VALUES
+(2, '10:25:00', '13:25:00', '2023-03-21', 1, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -352,7 +360,7 @@ INSERT INTO `renglonetiquetado` (`id`, `inicio`, `fin`, `fecha`, `id_empleado`, 
 
 CREATE TABLE `sector` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(11) COLLATE utf8_spanish_ci NOT NULL
+  `nombre` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --

@@ -33,16 +33,16 @@ abstract class Crud extends Connection{
     }*/
     
     public function getAll(){
-    try{
-        $this->pdo->query('SET SESSION query_cache_type = OFF'); // Desactivar la caché de consultas
-        $estado = 0;
-        $stm = $this->pdo->prepare("SELECT * FROM ".$this->table." WHERE estado=?");
-        $stm->execute(array($estado));
-        return $stm->fetchAll(PDO::FETCH_OBJ); //devuelve una lista de objetos.
-    } catch (PDOException $e) {
-        echo $e->getMessage();
+        try{
+            $this->pdo->query('SET SESSION query_cache_type = OFF'); // Desactivar la caché de consultas
+            $estado = 0;
+            $stm = $this->pdo->prepare("SELECT * FROM ".$this->table." WHERE estado=?");
+            $stm->execute(array($estado));
+            return $stm->fetchAll(PDO::FETCH_OBJ); //devuelve una lista de objetos.
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
-}
 
 
 
@@ -66,7 +66,7 @@ abstract class Crud extends Connection{
             $stm->execute(array($id));
             $result = $stm->fetch(PDO::FETCH_OBJ);
             return ($result !== false) ? $result : null;
-        } catch (PDOException $e) {
+        } catch (PDOException $e) {         
             echo $e->getMessage();
         }             
     }

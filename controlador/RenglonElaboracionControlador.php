@@ -33,6 +33,17 @@ class RenglonElaboracionControlador {
         require_once 'vista/vistaRenglonElaboracion.php';
     }
     
+    public function finalizarRenglon(){
+        $ren = new RenglonElaboracion();
+        $ren = $ren->getById($_REQUEST['id']); //buscamos el renglon para finalizarlo.       
+        
+        date_default_timezone_set('America/Argentina/Buenos_Aires');
+        $ren->fin = date("H:i:s"); //establecemos la hora de fin.
+        $ren->fecha_fin = date('Y-m-d');
+        
+        require_once 'vista/vistaRenglonElaboracion.php'; //volvemos a la vista.
+    }
+    
     public function crearOeditar(){
         //echo 'estoy aca rey';
         $renglon = new RenglonElaboracion();
@@ -40,7 +51,8 @@ class RenglonElaboracionControlador {
         //echo $_REQUEST['id'];
         $renglon->setInicio($_REQUEST['inicio']);
         $renglon->setFin($_REQUEST['fin']);
-        $renglon->setFecha($_REQUEST['fecha']);
+        $renglon->setFecha_inicio($_REQUEST['fecha_ini']);
+        $renglon->setFecha_fin($_REQUEST['fecha_fin']);
         $empleado = new Empleado();
         $renglon->setId_empleado($empleado->getById($_REQUEST['idEmpleado']));
         //echo $_REQUEST['idEmpleado'];  //COMPROBACION.

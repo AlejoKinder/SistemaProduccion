@@ -1,4 +1,4 @@
-<?php
+    <?php
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/licenseprivate $default.txt to change this license
@@ -177,7 +177,227 @@ class OrdenProduccion extends Crud{
         } catch (PDOException $e) {
             echo $e->getMessage();
         }                 
+    }  
+    
+    public function calcularHorasOrden($ordenId){
+        $horasTotales = 0;
+        $auxRenglones;
+        
+        //echo "Llegue x1";
+        $renglones = array('listRenglonesElaboracion' => 'renglonelaboracion','listRenglonesControl' => 'rengloncontrol','listRenglonesAjuste' => 'renglonajuste', 'listRenglonesEspecificacion' => 'renglonespecificaciones', 'listRenglonesEtiquetado' => 'renglonetiquetado', 'listRenglonesEnvasado' => 'renglonenvasado', 'listRenglonesControlFinal' => 'rengloncontrolfinal');
+        foreach($renglones as $renglon=>$tabla){
+            $auxRenglones = $this->getRenglones($ordenId, $tabla);
+            foreach($auxRenglones as $valor){
+                if ($valor->fecha_fin != "0000-00-00" && $valor->fin != "00:00:00") {
+                    //echo "entre aca";
+                    $horasTotales += $this->calcularHoras($valor->fecha_inicio, $valor->fecha_fin, $valor->inicio, $valor->fin);
+                    //echo "cant: ".$horasTotales;
+                }
+            }
+        }
+        
+        return $this->convertirDecimalAHorasMinutosSegundos($horasTotales);
     }
+    
+    function calcularHoras($fechaInicio, $fechaFin, $horaInicio, $horaFin) {
+    $jornadaLaboral = include __DIR__ . '/../core/jornada_laboral.php';
+    $horasTotales = 0;
+    $fechaActual = strtotime($fechaInicio . ' ' . $horaInicio);
+    $fechaFin = strtotime($fechaFin . ' ' . $horaFin);
+
+    // Verificar si la fecha de inicio y la fecha de fin son iguales
+    if (date('Y-m-d', $fechaActual) === date('Y-m-d', $fechaFin)) {
+        $horaInicioJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[date('l', $fechaActual) . 'HoraInicio']);
+        $horaFinJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[date('l', $fechaActual) . 'HoraFin']);
+
+        $horaInicio = max($fechaActual, $horaInicioJornada);
+        $horaFin = min($fechaFin, $horaFinJornada);
+
+        if ($horaInicio <= $horaFin) {
+            $horas = (floatval($horaFin) - floatval($horaInicio)) / 3600;
+            $horasTotales += $horas;
+        }
+    } else {
+        while ($fechaActual <= $fechaFin) {
+            $diaSemana = date('l', $fechaActual); // Obtener el nombre del día de la semana en inglés
+
+            if (isset($jornadaLaboral[$diaSemana . 'HoraInicio']) && isset($jornadaLaboral[$diaSemana . 'HoraFin'])) {
+                $horaInicioJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraInicio']);
+                $horaFinJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraFin']);
+
+                // Verificar si es fin de semana (sábado o domingo) y omitir el cálculo
+                if ($diaSemana === 'Saturday' || $diaSemana === 'Sunday') {
+                    $fechaActual = strtotime('+1 day', $fechaActual);
+                    continue;
+                }
+                
+                if ((date('Y-m-d', $fechaActual) <= date('Y-m-d', $fechaFin)) && (date('Y-m-d', $fechaActual) !== $fechaInicio)){
+                    $horaInicioJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraInicio']);
+                    $horaFinJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraFin']);
+                    $horas = (floatval($horaFinJornada) - floatval($horaInicioJornada)) / 3600;
+                    $horas = max($horas, 0);
+                    $horasTotales += $horas;
+                    $fechaActual = strtotime('+1 day', $fechaActual);
+                    continue;
+                }
+
+                $horaInicio = max($fechaActual, $horaInicioJornada);
+                $horaFin = min($fechaFin, $horaFinJornada);
+
+                if ($horaInicio <= $horaFin) {
+                    $horas = (floatval($horaFin) - floatval($horaInicio)) / 3600;
+                    $horas = max($horas, 0);
+                    $horasTotales += $horas;
+                }
+            }
+
+            $fechaActual = strtotime('+1 day', $fechaActual);
+        }
+    }
+
+    return $horasTotales;
+}
+
+
+    
+    /*function calcularHoras($fechaInicio, $fechaFin, $horaInicio, $horaFin) {
+    $jornadaLaboral = include __DIR__ . '/../core/jornada_laboral.php';
+    $horasTotales = 0;
+    $fechaActual = strtotime($fechaInicio . ' ' . $horaInicio);
+    $fechaFin = strtotime($fechaFin . ' ' . $horaFin);
+
+    while ($fechaActual <= $fechaFin) {
+        $diaSemana = date('l', $fechaActual); // Obtener el nombre del día de la semana en inglés
+
+        if (isset($jornadaLaboral[$diaSemana . 'HoraInicio']) && isset($jornadaLaboral[$diaSemana . 'HoraFin'])) {
+            $horaInicioJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraInicio']);
+            $horaFinJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraFin']);
+
+            // Verificar si es fin de semana (sábado o domingo) y omitir el cálculo
+            if ($diaSemana === 'Saturday' || $diaSemana === 'Sunday') {
+                $fechaActual = strtotime('+1 day', $fechaActual);
+                continue;
+            }
+
+            $horaInicio = max($fechaActual, $horaInicioJornada);
+            $horaFin = min($fechaFin, $horaFinJornada);
+
+            if ($horaInicio <= $horaFin) {
+                $horas = ($horaFin - $horaInicio) / 3600;
+                $horas = max($horas, 0);
+                $horasTotales += $horas;
+            }
+        }
+
+        $fechaActual = strtotime('+1 day', $fechaActual);
+    }
+
+    // Ajuste adicional para incluir las horas de inicio y fin en días parciales
+    $horaInicioDia = strtotime(date('Y-m-d', strtotime($fechaInicio)) . ' ' . $jornadaLaboral['MondayHoraInicio']);
+    $horaFinDia = strtotime(date('Y-m-d', strtotime($fechaFin)) . ' ' . $jornadaLaboral['FridayHoraFin']);
+    $horaInicio = max($fechaInicio, $horaInicioDia);
+    $horaFin = min($fechaFin, $horaFinDia);
+
+    if ($horaInicio <= $horaFin) {
+        $horas = (floatval($horaFin) - floatval($horaInicio)) / 3600;
+        $horas = max($horas, 0);
+        $horasTotales += $horas;
+    }
+
+    return $horasTotales;
+}*/
+
+
+
+
+
+
+
+
+
+    
+    /*function calcularHoras($fechaInicio, $fechaFin, $horaInicio, $horaFin) {
+    $jornadaLaboral = include __DIR__ . '/../core/jornada_laboral.php';
+    $horasTotales = 0;
+    $fechaActual = strtotime($fechaInicio . ' ' . $horaInicio);
+    $fechaFin = strtotime($fechaFin . ' ' . $horaFin);
+
+    while ($fechaActual <= $fechaFin) {
+        $diaSemana = date('l', $fechaActual); // Obtener el nombre del día de la semana en inglés
+
+        if (isset($jornadaLaboral[$diaSemana . 'HoraInicio']) && isset($jornadaLaboral[$diaSemana . 'HoraFin'])) {
+            $horaInicioJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraInicio']);
+            $horaFinJornada = strtotime(date('Y-m-d', $fechaActual) . ' ' . $jornadaLaboral[$diaSemana . 'HoraFin']);
+
+            $horaInicio = max($fechaActual, $horaInicioJornada);
+            $horaFin = min($fechaFin, $horaFinJornada);
+
+            if ($horaInicio <= $horaFin) {
+                $horasTotales += ($horaFin - $horaInicio) / 3600;
+            }
+        }
+
+        $fechaSiguiente = strtotime('+1 day', $fechaActual);
+
+        if (date('Y-m-d', $fechaSiguiente) != date('Y-m-d', $fechaActual) && $fechaSiguiente < $fechaFin) {
+            $horasTotales += ($horaFinJornada - $horaInicioJornada) / 3600;
+        }
+
+        $fechaActual = $fechaSiguiente;
+    }
+
+    return $horasTotales;
+}*/
+
+
+
+
+
+    
+    /*function calcularHoras($fechaInicio, $fechaFin, $horaInicio, $horaFin) {
+        $jornadaLaboral = include __DIR__ . '/../core/jornada_laboral.php';
+        $horaInicioJornada = strtotime($jornadaLaboral['horaInicio']);
+        $horaFinJornada = strtotime($jornadaLaboral['horaFin']);
+        $fechaInicio = strtotime($fechaInicio . ' ' . $horaInicio);
+        $fechaFin = strtotime($fechaFin . ' ' . $horaFin);
+        $segundosTrabajados = $fechaFin - $fechaInicio;
+
+        if ($segundosTrabajados <= 0) {
+            return 0; // Si la fecha de inicio es igual o posterior a la fecha de fin, retorna 0 horas trabajadas
+        }
+
+        $horasTrabajadas = $segundosTrabajados / 3600; // Convierte los segundos a horas
+
+        // Si la fecha de inicio es diferente a la fecha de fin, ajusta las horas trabajadas según la jornada laboral
+        if (date('Y-m-d', $fechaInicio) != date('Y-m-d', $fechaFin)) {
+            $horaFinDia = strtotime(date('Y-m-d', $fechaInicio) . ' ' . $jornadaLaboral['horaFin']);
+            $segundosDia1 = $horaFinDia - $fechaInicio;
+            $horasTrabajadasDia1 = $segundosDia1 / 3600;
+            $horasTrabajadas -= $horasTrabajadasDia1;
+
+            $horaInicioDia = strtotime(date('Y-m-d', $fechaFin) . ' ' . $jornadaLaboral['horaInicio']);
+            $segundosDia2 = $fechaFin - $horaInicioDia;
+            $horasTrabajadasDia2 = $segundosDia2 / 3600;
+            $horasTrabajadas -= $horasTrabajadasDia2;
+        }
+
+        // Si las horas trabajadas son negativas, las ajusta a 0
+        if ($horasTrabajadas < 0) {
+            $horasTrabajadas = 0;
+        }
+
+        return $horasTrabajadas;
+    }*/
+    
+    function convertirDecimalAHorasMinutosSegundos($numeroDecimal) {
+        $horas = floor($numeroDecimal); // Obtener la parte entera (horas)
+        $minutosDecimal = ($numeroDecimal - $horas) * 60; // Obtener la parte decimal y convertir a minutos
+        $minutos = floor($minutosDecimal); // Obtener la parte entera de los minutos
+        $segundos = round(($minutosDecimal - $minutos) * 60); // Obtener los segundos y redondear
+
+        return sprintf("%02d:%02d:%02d", $horas, $minutos, $segundos); // Formatear la salida como HH:MM:SS
+    }
+
         
     public function create() {        
         try{

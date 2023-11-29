@@ -9,7 +9,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title></title>
     </head>
     <body>        
-        <?php $idOrden = $_REQUEST['idOrden']; ?>
+        <?php 
+            $idOrden = $_REQUEST['idOrden'];
+        ?>
         <table>
             <tr>
                 <td>
@@ -28,7 +30,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <table>
             <tr>
                 <?php
-                    $renglon = array('Inicio', ' | Fin', ' | Fecha', '| Responsable');
+                    $renglon = array('Inicio', '| Fecha Inicio',' | Fin', ' | Fecha Fin', '| Responsable');
                     foreach($renglon as $valor):
                 ?>
                 <td><h3><?php echo $valor; ?></h3></td>
@@ -47,11 +49,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
 ?>
     <tr>                
         <td><?php echo $listRenglones->inicio; ?></td>
+        <td><?php echo $listRenglones->fecha_inicio; ?></td>
         <td><?php echo $listRenglones->fin; ?></td> 
-        <td><?php echo $listRenglones->fecha; ?></td>
+        <td><?php echo $listRenglones->fecha_fin; ?></td>
         <td><?php echo ($empleadoBus !== null) ? $empleadoBus->nombre : '' ?></td>                     
         <td><a href="index.php?controller=renglonElaboracion&action=existencia&id=<?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Editar</a></td>
         <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=renglonElaboracion&action=eliminar&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Eliminar</a></td>
+        <?php if($listRenglones->fin == '00:00:00'): ?>
+            <td><a onclick="javascript:return confirm('Seguro que quiere finalizar el Renglon?');" href="index.php?controller=renglonElaboracion&action=finalizarRenglon&id= <?php echo $listRenglones->id; ?>&idOrden=<?php echo $_REQUEST['idOrden']?>">Finalizar</a></td>
+        <?php endif; ?>
     </tr>
 <?php endforeach; ?>
         </table>

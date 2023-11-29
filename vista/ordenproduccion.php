@@ -10,10 +10,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
     </head>
     <body>
         <a href='index.php?controller=ordenProduccion&action=existencia'>Nueva Orden de Produccion</a>
+        <a href='index.php?controller=articulo&action=indexOrdenArticulo'> | Formulas</a>
         <table>
             <tr>
                 <?php
-                    $orden = array('Id', ' | Prioridad', ' | Operacion', '| Fecha Entrega', '| Materia', '| Color', '| Tipo', '| Marca', '| Tapa Color', '| Sector');
+                    $orden = array('Id', ' | Prioridad', ' | Operacion', '| Fecha Entrega', '| Materia', '| Color', '| Tipo', '| Marca', '| Tapa Color', '| Sector', '| Cant. Horas');
                     foreach($orden as $valor):
                 ?>
                 <td><h3><?php echo $valor; ?></h3></td>
@@ -40,6 +41,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <td><input type="text" readonly style="background-color: <?php echo $listOrdenes->tapaColor; ?>"></td>
         <!--<td><?php //echo $listOrdenes->tapaColor; ?></td>-->
         <td><?php echo ($sector !== null) ? $sector->nombre : ''; ?></td>
+        <?php //$orden = $orden->getById($listOrdenes->id)?>
+        <td><?php echo $orden->calcularHorasOrden($listOrdenes->id); ?></td>
         <td><a href="index.php?controller=ordenProduccion&action=existencia&id=<?php echo $listOrdenes->id; ?>">Editar</a></td>
         <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=ordenProduccion&action=eliminar&id= <?php echo $listOrdenes->id; ?>">Eliminar</a></td>
         <td><a href="index.php?controller=renglonElaboracion&action=mostrar&idOrden=<?php echo $listOrdenes->id;?>">Ver-></td>

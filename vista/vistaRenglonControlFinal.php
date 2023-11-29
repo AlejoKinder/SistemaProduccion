@@ -9,13 +9,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title></title>
     </head>
     <body>
-        <?php $idOrden = $_REQUEST['idOrden']; ?>            
+        <?php 
+            $idOrden = $_REQUEST['idOrden'];
+            date_default_timezone_set('America/Argentina/Buenos_Aires');
+            $horaIni = date("H:i:s");
+            $fechaIni = date('Y-m-d');
+        ?>            
         <?php
             //echo $idOrden;
             if(isset($ren)){
-                $datosRenglon = array('id'=>$ren->id, 'inicio'=>$ren->inicio, 'fin'=>$ren->fin, 'fecha'=>$ren->fecha, 'solidos'=>$ren->fecha, 'presentacion'=>$ren->presentacion, 'entregado'=>$ren->entregado, 'corregido'=>$ren->corregido,  'perdido'=>$ren->perdido,  'litrosOkg'=>$ren->litrosOkg, 'idEmpleado'=>$ren->id_empleado);
+                $datosRenglon = array('id'=>$ren->id, 'fin'=>$ren->fin, 'fecha_fin'=>$ren->fecha_fin, 'presentacion'=>$ren->presentacion, 'entregado'=>$ren->entregado, 'corregido'=>$ren->corregido,  'perdido'=>$ren->perdido,  'litrosOkg'=>$ren->litrosOkg, 'idEmpleado'=>$ren->id_empleado);
+                $horaIni = $ren->inicio;
+                $fechaIni = $ren->fecha_inicio;
             }else{
-                $datosRenglon = array('id'=>"", 'inicio'=>"", 'fin'=>"", 'fecha'=>"", 'solidos'=>"", 'presentacion'=>"", 'entregado'=>"", 'corregido'=>"",  'perdido'=>"",  'litrosOkg'=>"", 'idEmpleado'=>"");
+                $datosRenglon = array('id'=>"", 'fin'=>"", 'fecha_fin'=>"", 'presentacion'=>"", 'entregado'=>"", 'corregido'=>"",  'perdido'=>"",  'litrosOkg'=>"", 'idEmpleado'=>"");
             }
         ?>
         <a href="index.php?controller=renglonControlFinal&action=mostrar&idOrden=<?php echo $idOrden;?>"><-Volver</a>
@@ -28,18 +35,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
                 <tr>
                     <td>Hora Inicio: </td>
                     <td>
-                        <input type="time" name="inicio" value=<?php echo $datosRenglon['inicio'] ?>>
+                        <input type="time" readonly name="inicio" value=<?php echo $horaIni; ?>>
                     </td>
                 </tr>
                 <tr>
                     <td>Hora Fin: </td>
                     <td>
-                        <input type="time" name="fin" value=<?php echo $datosRenglon['fin'] ?>>
+                        <input type="time" readonly name="fin" value=<?php echo $datosRenglon['fin'] ?>>
                     </td>
                 </tr>
                 <tr>
-                    <td>Fecha: </td>
-                    <td><input type="date" name="fecha" value=<?php echo $datosRenglon['fecha'] ?>></td>
+                    <td>Fecha Inicio: </td>
+                    <td><input type="date" readonly name="fechaIni" value=<?php echo $fechaIni ?>></td>
+                </tr>
+                <tr>
+                    <td>Fecha Fin: </td>
+                    <td><input type="date" readonly name="fechaFin" value=<?php echo $datosRenglon['fecha_fin'] ?>></td>
                 </tr>
                 <tr>
                     <td>Presentacion: </td>
