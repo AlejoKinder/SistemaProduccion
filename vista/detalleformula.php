@@ -24,7 +24,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         ?>
     <tr>                
         <td><?php echo $listdetalles->detalle; ?></td>
-        <td><a href="index.php?controller=ordenProduccion&action=existencia&id=<?php echo $listOrdenes->id; ?>">Editar</a></td>
+        <td><a href="index.php?controller=formula&action=indexFormula">Editar</a></td>
         <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=ordenProduccion&action=eliminar&id= <?php echo $listOrdenes->id; ?>">Eliminar</a></td>
         <td><a href="index.php?controller=renglonElaboracion&action=mostrar&idOrden=<?php echo $listOrdenes->id;?>">Ver-></td>
     </tr>
