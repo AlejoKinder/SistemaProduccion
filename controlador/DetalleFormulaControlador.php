@@ -52,6 +52,11 @@ class DetalleFormulaControlador {
         header("Location: index.php");
     }
     
+    public function formulario(){
+        
+        require_once 'vista/vista';
+    }
+    
     public function eliminar(){
         //echo "llegue aca: ".$_REQUEST['id'];
         $opa = new DetalleFormula();

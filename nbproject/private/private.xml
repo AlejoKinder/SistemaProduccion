@@ -3,18 +3,37 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/Familia.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/ordenproduccion.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/Material.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/detalleformula.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaFormula.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaFamilia.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaSeleccionListadoArticulo.php</file>
-            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaOrdenProduccion.php</file>
-            <file>file:/D:/xampp/htdocs/SistemaProduccion/core/Crud.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/index.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/MaterialesControlador.php</file>
-            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/SubFamilia.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/Articulo.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/OrdenProduccion.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaFormulaRelacion.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaMaterial.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaSubFamilia.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/formula.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/core/obtener_subfamilias.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/Familia.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaRenglonControl.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/Formula.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/ArticuloControlador.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/renglonelaboracion.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaOrdenProduccion.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/core/Crud.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/OrdenProduccionControlador.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/Sector.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaRenglonAjuste.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/core/jornada_laboral.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/materialesfiltrado.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/SubFamilia.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/modelo/RenglonControl.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/vista/vistaSeleccionArticulo.php</file>
+            <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/DetalleFormulaControlador.php</file>
             <file>file:/D:/xampp/htdocs/SistemaProduccion/controlador/FormulaControlador.php</file>
         </group>
     </open-files>

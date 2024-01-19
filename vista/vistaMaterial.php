@@ -9,11 +9,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title></title>
     </head>
     <body>
-        <?php 
-            date_default_timezone_set('America/Argentina/Buenos_Aires');
-            $horaIni = date("H:i:s");
-            $fechaIni = date('Y-m-d');
-        ?>            
         <?php
             if (isset($ren)) {
                 $mat = array(
@@ -47,9 +42,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <a href="index.php?controller=renglonElaboracion&action=mostrar&idOrden=<?php echo $idOrden;?>"><-Volver</a>
         <h1>Orden de Produccion: Registro Elaboracion</h1>
         <br>
-        <form action="index.php?controller=renglonElaboracion&action=crearOeditar" method="post">
+        <form action="index.php?controller=materiales&action=crearMaterial" method="post">
             <input type="hidden" name="id" value=<?php echo $mat['id']; ?>>
-            <input type="hidden" name="idsubfamilia" value="">
+            <input type="hidden" name="idsubfamilia" value=<?php echo $_REQUEST['idSubFamilia']; ?>>
+            <input type="hidden" name="idDetalle" value=<?php echo $_REQUEST['idDetalle']; ?>>
             <table>
                 <tr>
                     <td>Costo:</td>

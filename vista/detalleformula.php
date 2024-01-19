@@ -9,12 +9,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         <title></title>
     </head>
     <body>
-        <a href='index.php?controller=ordenProduccion&action=existencia'>Nueva Formula</a>
+        <a href='index.php?controller=detalleFormula&action=existencia'>Nueva Formula</a>
         <table>
             <tr>
                 <?php
-                    $orden = array('Detalle');
-                    foreach($orden as $valor):
+                    $encabezado = array('Detalle');
+                    foreach($encabezado as $valor):
                 ?>
                 <td><h3><?php echo $valor; ?></h3></td>
                 <?php endforeach; ?>
@@ -24,9 +24,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Scripting/EmptyPHPWebPage.php to 
         ?>
     <tr>                
         <td><?php echo $listdetalles->detalle; ?></td>
-        <td><a href="index.php?controller=formula&action=indexFormula">Editar</a></td>
-        <td><a onclick="javascript:return confirm('Seguro de eliminar este registro?');" href="index.php?controller=ordenProduccion&action=eliminar&id= <?php echo $listOrdenes->id; ?>">Eliminar</a></td>
-        <td><a href="index.php?controller=renglonElaboracion&action=mostrar&idOrden=<?php echo $listOrdenes->id;?>">Ver-></td>
+        <td><a href="index.php?controller=formula&action=indexFormula&idDetalle=<?php echo $listdetalles->id; ?>">Editar</a></td>        
     </tr>
 <?php endforeach; ?>
         </table>
